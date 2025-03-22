@@ -1,0 +1,35 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 18
+    commands:
+      - npm install -g aws-cdk
+      - npm install
+  
+  pre_build:
+    commands:
+      - echo "Starting build for student ID 8945124"
+      - echo "Installing dependencies..."
+  
+  build:
+    commands:
+      - echo "Running CDK synth..."
+      - cdk synth
+      - echo "Deploying infrastructure..."
+      - cdk deploy --require-approval never
+      - echo "Deployment complete"
+  
+  post_build:
+    commands:
+      - echo "Build completed for martin-8945124-cicd"
+
+artifacts:
+  files:
+    - '**/*'
+  base-directory: '.'
+
+cache:
+  paths:
+    - 'node_modules/**/*' 
